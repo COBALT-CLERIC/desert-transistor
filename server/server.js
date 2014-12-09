@@ -4,8 +4,8 @@ var path = require('path');
 var dir = path.resolve(__dirname + '/../client');
 var controller = require('./controller');
 var helpers = require('./helpers');
-var port = process.env.PORT || 3000;
-var mongoose = require('mongoose');  
+var port = process.env.PORT || 4000;
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var http = require('http').Server(app);
@@ -31,22 +31,22 @@ db.once('open', function callback () {
 ///////////////////////////    SOCKET.IO    ///////////////////////////
 //connects to Socket.io
 io.on('connection', function(socket){
-  
+
   console.log('a user connected');
   //teacher can be notified to new connections. NOT complete
-  io.sockets.emit("teacher:newStudent", {});
-  io.emit("event", {it: "works"});
+  io.sockets.emit('teacher:newStudent', {});
+  io.emit('event', {it: 'works'});
   //listen for students to click button and emit confusion event
   socket.on('confusion', function(data) {
-  	console.log("COOOONNNFUUUSIIIOOOONNNN!");
+  	console.log('COOOONNNFUUUSIIIOOOONNNN!');
   	console.log(data);
   	//add the incoming student data to the database
     helpers.addVote(data, function(data) {
-  		console.log("DOOR!");
+  		console.log('DOOR!');
       //pass the data down to the teacher to be displayed in the graph
       io.sockets.emit('teacher:update', data);
   	});
-  })
+  });
 });
 
 ///////////////////////////    STARTING SERVER    ///////////////////////////

@@ -1,8 +1,11 @@
+'use strict';
 
 angular
-	  .module('TeacherController', [])
-	  .controller('TeacherController', ['$scope', 'teacherFactory', function($scope, teacherFactory){
+  .module('TeacherController', [])
+  .controller('TeacherController', TeacherController);
 
-			$scope.confusedStudents = teacherFactory.confusedStudents;
-			
-	  }])
+TeacherController.$inject = ['$scope', 'teacherFactory'];
+
+function TeacherController ($scope, teacherFactory){
+	$scope.confusedStudents = teacherFactory.confusedStudents;
+}

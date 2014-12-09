@@ -1,21 +1,26 @@
+'use strict';
+
 angular
   .module('teacherFactory', [])
-  .factory('teacherFactory',[ function(){
+  .factory('teacherFactory', teacherFactory);
 
-		var socket = io();
+function teacherFactory (){
 
-		var confusedStudents = [];
+	var socket = io();
 
-		//listens for any updates and will call a function in the teacher.js
-		//will also console.log the name from the student object that was submitted
-		socket.on("teacher:update", function(data){
-		    confusedStudents.push(data);
-		    calculateConfusion(confusedStudents);
-		    console.log(data.studentID);
-		})
+	var confusedStudents = [];
 
-		return {
-			confusedStudents: confusedStudents
-		};
+	//listens for any updates and will call a function in the teacher.js
+	//will also console.log the name from the student object that was submitted
+	socket.on('teacher:update', function(data){
+	    confusedStudents.push(data);
+	    calculateConfusion(confusedStudents);
+	    console.log(data.studentID);
+	});
+	console.log(confusedStudents);
 
-	}]);
+	return {
+		confusedStudents: confusedStudents
+	};
+
+}
