@@ -9,14 +9,14 @@ module.exports = {
 		helpers.addVote(req.body, function(data){
 			console.log('success');
 			res.send(data);
-		})
+		});
 	},
 
 	getVotes: function(req, res, next){
 		helpers.getVotes(function(data){
 			console.log('success');
 			res.send(data);
-		})
+		});
 	}
-}
+};
 

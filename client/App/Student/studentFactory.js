@@ -1,62 +1,64 @@
+'use strict';
+
 angular
-	  .module('studentFactory', [])
-	  .factory('studentFactory',[ function(){
+  .module('studentFactory', [])
+  .factory('studentFactory', studentFactory);
 
-			var socket = io();
+function studentFactory (){
 
-			console.log("getting app.js");
+	var socket = io();
 
-			function connect (){
-				socket.on('connect', function(){
-					console.log("socket connected");
-				});
-			
-				socket.on('disconnect', function(){
-					console.log("socket DISconnected");
-				});
+	console.log('getting app.js');
 
-				socket.on('event', function(data){
-					console.log("data: ");
-					console.log(data);
-				});
-			}
+	function connect (){
+		socket.on('connect', function(){
+			console.log('socket connected');
+		});
 
-			//when someone clicks confused, this function will be called in the controller
-			//NOTE: "lectureID" is just hard-coded and should be turned into an input in the
-			//same manner as "studentID"
-			function confusedStudent (name){
-				
-				socket.emit("confusion", {
-					lectureID: "RECURSION",
-					studentID: name
-				}); 
-				console.log("I done got clicked.");
-			}
+		socket.on('disconnect', function(){
+			console.log('socket disconnected');
+		});
 
-			return {
-				connect: connect,
-				confusedStudent: confusedStudent
-			};
-	  	
-	  }]);
+		socket.on('event', function(data){
+			console.log('data: ');
+			console.log(data);
+		});
+	}
+
+	//when someone clicks confused, this function will be called in the controller
+	//NOTE: 'lectureID' is just hard-coded and should be turned into an input in the
+	//same manner as 'studentID'
+	function confusedStudent (name){
+		socket.emit('confusion', {
+			lectureID: 'RECURSION',
+			studentID: name
+		});
+		console.log('I done got clicked.');
+	}
+
+	return {
+		connect: connect,
+		confusedStudent: confusedStudent
+	};
+}
 
 
 
-		
+
 		// document.getElementById('confused').addEventListener('click', function() {
-		// 	socket.emit("confusion", {
-		// 		lectureID: "RECURSION",
-		// 		studentID: "THOMAS"
-		// 	}); 
-		// 	console.log("I done got clicked.");
+		// 	socket.emit('confusion', {
+		// 		lectureID: 'RECURSION',
+		// 		studentID: 'THOMAS'
+		// 	});
+		// 	console.log('I done got clicked.');
 		// })
 
 		// socket.on('connect', function(){
-		// 	console.log("socket connected");
+		// 	console.log('socket connected');
 		// });
 
 		// socket.on('event', function(data){
-		// 	console.log("data: ");
+		// 	console.log('data: ');
 		// 	console.log(data);
 		// });
 
