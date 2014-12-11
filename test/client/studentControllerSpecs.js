@@ -1,24 +1,37 @@
-describe('StudentController', function(){
-  var $scope, studentFactory, authFactory, controller;
+describe('StudentController', function () {
+  var $scope, $rootScope, createController, studentFactory, authFactory, $httpBackend;
 
-  beforeEach(function(){
-    module('app');
+  // using angular mocks, we can inject the injector
+  // to retrieve our dependencies
+  beforeEach(module('app'));
+  beforeEach(inject(function($injector) {
 
-    inject(function($rootScope, $controller,_studentFactory_, _authFactory_){
-      $scope = $rootScope.new();
-      studentFactory = _studentFactory_;
-      authFactory = _authFactory_;
+    // mock out our dependencies
+    $rootScope = $injector.get('$rootScope');
+    $httpBackend = $injector.get('$httpBackend');
+    authFactory = $injector.get('authFactory');
+    studentFactory = $injector.get('studentFactory');
+    $scope = $rootScope.$new();
 
-      controller = $controller('StudentController', {
-        $scope: $scope
+    var $controller = $injector.get('$controller');
+
+    createController = function () {
+      return $controller('StudentController', {
+        $scope: $scope,
+        authFactory: authFactory,
+        studentFactory: studentFactory
+
       });
-    });
+    };
+  }));
+
+  it('should have a authFactory connection', function() {
+    createController();
+    expect($scope.student).to.be.equal('authFactory');
   });
 
-  it("should have a $scope variable", function(){
-    expect($scope).toBeDefined();
+  it('should have a confusedStudent method on the $scope', function () {
+    createController();
+    expect($scope.confusedStudent).to.be.a('function');
   });
-
-
-
-})
+});

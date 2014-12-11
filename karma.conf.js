@@ -25,16 +25,15 @@ module.exports = function(config) {
       'client/public/lib/d3/d3.js',
       //app code
       'client/App/**/*.js',
-      'client/*.js',
+      'client/teacher.js',
+      'client/app.js',
       //spec files
       'test/client/*.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-      'karma.conf.js'
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser

@@ -1,4 +1,4 @@
-describe('Routing', function(){
+describe('appRoutes', function(){
   //tests routes
   var $route;
   beforeEach(module('app'));
@@ -15,7 +15,7 @@ describe('Routing', function(){
 
   it('Should have /teacher route, template and controller', function(){
     expect($route.routes['/teacher']).to.be.ok();
-    expect($route.routes['/teacher'].controller).to.be('TeacherController'):
+    expect($route.routes['/teacher'].controller).to.be('TeacherController');
     expect($route.routes['/teacher'].templateUrl).to.be('App/Teacher/teacher.html');
   });
 
