@@ -16,13 +16,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       //socket io source
-      // 'client/bower_components/socket.io-client/socket-io.js',
+      'client/public/lib/socket.io-client/socket-io.js',
       //angular source
-      'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'client/bower_components/angular-ui-router/src/*.js',
+      'client/public/lib/angular/angular.js',
+      'client/public/lib/angular-ui-router/release/angular-ui-router.js',
+      'client/public/lib/angular-ui-router/src/*.js',
       //d3 source
-      // 'client/bower_components/d3/d3.js',
+      'client/public/lib/d3/d3.js',
       //app code
       'client/App/**/*.js',
       'client/*.js',
