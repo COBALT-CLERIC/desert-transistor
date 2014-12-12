@@ -20,6 +20,7 @@
   "homepage": "https://github.com/desert-transistor/desert-transistor",
   "dependencies": {
     "body-parser": "^1.10.0",
+    "chai": "^1.10.0",
     "express": "^4.10.4",
     "mongoose": "^3.8.20",
     "mongoose-timestamp": "^0.3.0",
@@ -28,5 +29,18 @@
     "path": "^0.4.9",
     "q": "^1.1.2",
     "socket.io": "^1.2.1"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.1.3",
+    "expect.js": "^0.3.1",
+    "karma": "^0.12.16",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.1.5",
+    "karma-mocha": "^0.1.4",
+    "karma-nested-reporter": "^0.1.1",
+    "karma-nyan-reporter": "0.0.43",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-unicorn-reporter": "^0.1.4"
   }
 }
