@@ -17,6 +17,7 @@ function teacherFactory (){
 	    // console.log('isThresholdReached', isThresholdReached)
 	    isThresholdReached()
 	    calculateConfusion(confusedStudents);
+	    popSquare(data);
 	    console.log(data.studentID);
 	    
 	});

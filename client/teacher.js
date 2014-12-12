@@ -1,8 +1,8 @@
 'use strict';
 
-var segments = 30;
+var segments = 30; //30 secs as the width at every timeframe
 var interval = 1000; //millesecond delay
-var totalStudents = 60;
+var totalStudents = 20;
 var now = new Date(Date.now());
 var confusionCollection = [];
 var confused = 0;
@@ -11,7 +11,7 @@ for (var i = 0, data = []; i < segments; i++) {
     data[i] = 0;
 }
 
-var margin = {top: 20, right: 20, bottom: 20, left: 20},
+var margin = {top: 40, right: 40, bottom: 60, left: 40},
   width = document.body.offsetWidth - margin.right,
   height = document.body.offsetHeight - margin.top - margin.bottom;
 
@@ -34,29 +34,93 @@ var svg = d3.select('body').append('svg')
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-var axis = svg.append('g')
+var xAxis = svg.append('g')
   .attr('class', 'x axis')
   .attr('transform', 'translate(0,' + height + ')') // move to bottom of screen
   .call(x.axis = d3.svg.axis().scale(x).orient('bottom'));
 
+/* adding y-axis*/
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .ticks(totalStudents/20)
+    .tickSize(-width, 0, 0);
+
+
+svg.append('g')
+   .attr("class", "y axis")
+   .attr("transform", "translate( 10,  0)")
+   .call(yAxis);
+
+/* adding path */
 var path = svg.append('g')
     .append('path')
     .attr('class','graphline')
     .datum(data);
 
+/*adding square groups*/
+var squareSize = height/totalStudents; 
+var globalY = height - squareSize;
+console.log('globalY',globalY);
+var squares = svg.append('g')
+    .attr('class', 'squares')
+    .style('fill', 'steelblue');
+
+
+//console.log('x position: ' + x(new Date())+'  width: '+width);
+//console.log('max x: '+ x((segments - 1) * interval));
+
 var calculateConfusion = function(array){
-    if (array) {
-      confusionCollection = array;
+
+  if (array) {
+    confusionCollection = array;
+  }
+  if (confusionCollection.length){
+    confused = Math.min(confusionCollection.map(function(confusionObj) {
+      var elapsed = (new Date()) - (new Date(confusionObj.createdAt));
+      return (elapsed < 3000) ? 1 : (3000/elapsed);
+    }).reduce(function(a, b) {
+      return a + b;
+    }), totalStudents);
+  }
+};
+
+var xPerSec = width/interval*segments;
+var squareTime = squareSize * xPerSec;
+// console.log('time',squareTime);
+//if the distance to 1st square is less than one squareSize, decrease y
+var holder = [];
+
+var popSquare = function(student){
+ // var xPos = timediff * xPerSec;
+
+  var xPos = width + margin.right + margin.left;
+  var yPos = globalY;
+
+  if(holder.length === 0){
+    yPos = globalY;
+  }else if(holder.length === 1){
+
+    var timediff  = (new Date(student.createdAt).getTime() - new Date(holder[0]).getTime());
+    console.log('diff', timediff);
+    if(timediff < squareTime/3){
+      globalY -= squareSize;  
+      yPos = globalY;   
+    }else{
+      globalY = height - squareSize;
+      yPos = globalY;
     }
-    if (confusionCollection.length){
-      confused = Math.min(confusionCollection.map(function(confusionObj) {
-        var elapsed = (new Date()) - (new Date(confusionObj.createdAt));
-        // console.log(elapsed)
-        return (elapsed < 3000) ? 1 : (3000/elapsed);
-      }).reduce(function(a, b) {
-        return a + b;
-      }), totalStudents);
-    }
+  }
+  //console.log('('+xPos+', '+yPos+')');
+  squares.append("rect")
+        .attr('class', 'square')
+        .attr("x", xPos)
+        .attr("y", yPos)
+        .attr("width", squareSize)
+        .attr("height", squareSize);
+  
+  holder.shift();
+  holder.push(student.createdAt);
 };
 
 var isThresholdReached = function(array, threshold){
@@ -69,6 +133,15 @@ var isThresholdReached = function(array, threshold){
     $('body').animate({background: 'indianred'}, 'slow');
   };
 }
+// function updateSquare(){
+//   /*position squares*/  
+//   console.log('in updateSquare');
+//   d3.selectAll('rect').transition()
+//     .duration(interval*segments*1.7)
+//     .ease('linear')
+//     .attr('transform', 'translate('+ (-width*2.2)+', 0)')
+//     .each('end', updateSquare);
+// }
 
 function update() {
   // update the domains
@@ -79,21 +152,20 @@ function update() {
   // push the accumulated confused onto the back, and reset the confused
   calculateConfusion();
   data.push(confused);
-  // console.log(confused);
-
-  // redraw the line
-  path
-    .attr('d', line)
-    .attr('transform', null);
 
   // slide the x-axis left
-  axis.call(x.axis)
+  xAxis.call(x.axis)
     .selectAll('text')
       .attr('y',10)
       .attr('transform', 'rotate(45)')
       .style('text-anchor', 'start');
+  
+  //redraw the line
+  path
+    .attr('d', line)
+    .attr('transform', null);
 
-  // slide the line left
+//  slide the line left
   path.transition()
     .duration(interval)
     .ease('linear')
@@ -102,6 +174,13 @@ function update() {
 
   // pop the old data point off the front
   data.shift();
+ 
+  d3.selectAll('rect').transition()
+    .duration(interval*segments*2)
+    .ease('linear')
+    .attr('transform', 'translate('+ (-width*2.2)+', 0)')
+  //  .each('end', update);
+ 
 }
-
 update();
+//updateSquare();

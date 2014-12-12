@@ -53,24 +53,25 @@
 
 html, body {
   position: relative;
-  background-color: #b3b0ad;
+  background-color: #fff;
   height: 100%;
   width: 100%;
 }
 
 .axis text {
-  font: 10px sans-serif;
+  font: 20px sans-serif;
+  margin-right:15px; 
 }
 
 .axis line,
 .axis path {
   fill: none;
-  stroke: #000;
+  stroke: lightgrey;
   shape-rendering: crispEdges;
 }
 
 .graphline {
   fill: none;
-  stroke: red;
+  stroke: steelblue;
   stroke-width: 3px;
 }
