@@ -11,7 +11,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests",
+    "tests"
   ],
   "dependencies": {
     "socket.io-client": "https://github.com/Automattic/socket.io-client.git#~1.2.1",
