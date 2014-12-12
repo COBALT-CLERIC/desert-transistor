@@ -61,7 +61,8 @@ var path = svg.append('g')
 /*adding square groups*/
 var squareSize = height/totalStudents; 
 var globalY = height - squareSize;
-console.log('globalY',globalY);
+
+
 var squares = svg.append('g')
     .attr('class', 'squares')
     .style('fill', 'steelblue');
@@ -111,9 +112,10 @@ var popSquare = function(student){
       yPos = globalY;
     }
   }
-  //console.log('('+xPos+', '+yPos+')');
-  squares.append("rect")
+
+  squares.append("image")
         .attr('class', 'square')
+        .attr('xlink:href', 'img/Mario-icon.png')
         .attr("x", xPos)
         .attr("y", yPos)
         .attr("width", squareSize)
@@ -133,15 +135,6 @@ var isThresholdReached = function(array, threshold){
     $('body').animate({background: 'indianred'}, 'slow');
   };
 }
-// function updateSquare(){
-//   /*position squares*/  
-//   console.log('in updateSquare');
-//   d3.selectAll('rect').transition()
-//     .duration(interval*segments*1.7)
-//     .ease('linear')
-//     .attr('transform', 'translate('+ (-width*2.2)+', 0)')
-//     .each('end', updateSquare);
-// }
 
 function update() {
   // update the domains
@@ -175,12 +168,12 @@ function update() {
   // pop the old data point off the front
   data.shift();
  
-  d3.selectAll('rect').transition()
+  d3.selectAll('image').transition()
     .duration(interval*segments*2)
     .ease('linear')
     .attr('transform', 'translate('+ (-width*2.2)+', 0)')
-  //  .each('end', update);
+    .each('end', update);
  
 }
 update();
-//updateSquare();
+
