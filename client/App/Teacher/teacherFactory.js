@@ -14,8 +14,11 @@ function teacherFactory (){
 	//will also console.log the name from the student object that was submitted
 	socket.on('teacher:update', function(data){
 	    confusedStudents.push(data);
+	    // console.log('isThresholdReached', isThresholdReached)
+	    isThresholdReached()
 	    calculateConfusion(confusedStudents);
 	    console.log(data.studentID);
+	    
 	});
 	console.log(confusedStudents);
 
