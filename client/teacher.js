@@ -51,12 +51,24 @@ var calculateConfusion = function(array){
     if (confusionCollection.length){
       confused = Math.min(confusionCollection.map(function(confusionObj) {
         var elapsed = (new Date()) - (new Date(confusionObj.createdAt));
+        // console.log(elapsed)
         return (elapsed < 3000) ? 1 : (3000/elapsed);
       }).reduce(function(a, b) {
         return a + b;
       }), totalStudents);
     }
 };
+
+var isThresholdReached = function(array, threshold){
+  var a = document.getElementsByTagName("audio")[0];
+  
+  //change background color of screen if confused score is greater than threshold
+  if (confused > 5) {
+    //play audio ding
+    a.play();
+    $('body').animate({background: 'indianred'}, 'slow');
+  };
+}
 
 function update() {
   // update the domains
