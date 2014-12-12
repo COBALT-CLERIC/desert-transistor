@@ -3,7 +3,7 @@ describe('AuthController', function () {
 
   // using angular mocks, we can inject the injector
   // to retrieve our dependencies
-  beforeEach(module('app'));
+  beforeEach(module('AuthController'));
   beforeEach(inject(function($injector) {
 
     // mock out our dependencies

@@ -1,6 +1,3 @@
-// Karma configuration
-// Generated on Wed Dec 10 2014 10:51:09 GMT-0800 (PST)
-
 module.exports = function(config) {
   config.set({
 
@@ -15,37 +12,39 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      //socket io source
-      'client/public/lib/socket.io-client/socket-io.js',
-      //angular source
+      // angular source
       'client/public/lib/angular/angular.js',
-      'client/public/lib/angular-ui-router/release/angular-ui-router.js',
-      'client/public/lib/angular-ui-router/src/*.js',
-      //d3 source
+      'client/publis/lib/angular-route/angular-route.js',
+      'client/public/lib/angular-mocks/angular-mocks.js',
+
       'client/public/lib/d3/d3.js',
-      //app code
+      'client/public/lib/socket.io-client/socket.io.js',
+      // our app code
       'client/App/**/*.js',
-      'client/teacher.js',
-      'client/app.js',
-      //spec files
-      'test/client/*.js'
+
+      // our spec files
+      'node_modules/expect.js/index.js',
+      'specs/client/**/*.js'
     ],
 
 
     // list of files to exclude
-    exclude: [],
+    exclude: [
+      'karma.conf.js'
+    ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['nyan','unicorn'],
 
 
     // web server port
@@ -62,16 +61,15 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
-
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
   });
-};
+}; 
