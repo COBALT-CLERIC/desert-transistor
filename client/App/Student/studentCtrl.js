@@ -19,7 +19,7 @@ function StudentController ($scope, $timeout, studentFactory, authFactory){
     $scope.isProcessing = true;
     $timeout(function(){
       $scope.isProcessing = false;
-    }, 30000);
+    }, 5000);
   };
 
 }
