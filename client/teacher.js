@@ -2,10 +2,20 @@
 
 var segments = 30; //30 secs as the width at every timeframe
 var interval = 1000; //millesecond delay
-var totalStudents = 20;
+
+var totalStudents=10;
+
+// var setTotalStudent = function(num){
+//   totalStudents = num;
+//   console.log('set total = '+totalStudents);
+// };
+
 var now = new Date(Date.now());
 var confusionCollection = [];
 var confused = 0;
+
+var images = ['img/kingsten.png', 'img/krystal.png', 'img/will.png', 
+'img/ash.png', 'img/jon.png', 'img/charlie.png', 'img/Mario-icon.png', 'img/silvia.png'];
 
 for (var i = 0, data = []; i < segments; i++) {
     data[i] = 0;
@@ -68,9 +78,6 @@ var squares = svg.append('g')
     .style('fill', 'steelblue');
 
 
-//console.log('x position: ' + x(new Date())+'  width: '+width);
-//console.log('max x: '+ x((segments - 1) * interval));
-
 var calculateConfusion = function(array){
 
   if (array) {
@@ -91,10 +98,10 @@ var squareTime = squareSize * xPerSec;
 // console.log('time',squareTime);
 //if the distance to 1st square is less than one squareSize, decrease y
 var holder = [];
-
+var clipId = 0;
 var popSquare = function(student){
  // var xPos = timediff * xPerSec;
-
+  clipId++;
   var xPos = width + margin.right + margin.left;
   var yPos = globalY;
 
@@ -103,7 +110,6 @@ var popSquare = function(student){
   }else if(holder.length === 1){
 
     var timediff  = (new Date(student.createdAt).getTime() - new Date(holder[0]).getTime());
-    console.log('diff', timediff);
     if(timediff < squareTime/3){
       globalY -= squareSize;  
       yPos = globalY;   
@@ -113,13 +119,15 @@ var popSquare = function(student){
     }
   }
 
+  
   squares.append("image")
         .attr('class', 'square')
-        .attr('xlink:href', 'img/Mario-icon.png')
+        .attr('xlink:href', images[Math.floor(Math.random()*images.length)])
         .attr("x", xPos)
         .attr("y", yPos)
         .attr("width", squareSize)
         .attr("height", squareSize);
+       
   
   holder.shift();
   holder.push(student.createdAt);
