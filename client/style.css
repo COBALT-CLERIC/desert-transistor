@@ -13,10 +13,29 @@
 
 #confused-icon {
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: -170px;
+  margin-left: -70px;
 
+}
+
+#confused-fill {
+  display: none;
+  bottom:0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -150px;
+  margin-top: -45px;
+  /*transform: translate(-50%, -50%);*/
+  
+  border: none;
+  border-radius:8px;
+  font-size:40px;
+  width: 300px;
+  height: 90px;
+  background: #7FC9CD;
 }
 
 #confused {
@@ -36,7 +55,7 @@
 
   
   /* Rectangle 5: */
-  background: #B2E4E7;
+  background: none;
   border: 5px solid #333333;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
   border-radius: 8px;
@@ -104,3 +123,5 @@ html, body {
   stroke-width: 3px;
 }
 
+.square{
+}
