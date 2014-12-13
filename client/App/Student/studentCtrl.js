@@ -4,9 +4,9 @@ angular
   .module('StudentController', [])
   .controller('StudentController', StudentController);
 
-StudentController.$inject = ['$scope', 'studentFactory', 'authFactory'];
+StudentController.$inject = ['$scope', '$timeout','studentFactory', 'authFactory'];
 
-function StudentController ($scope, studentFactory, authFactory){
+function StudentController ($scope, $timeout, studentFactory, authFactory){
 
 	studentFactory.connect();
 
@@ -16,6 +16,10 @@ function StudentController ($scope, studentFactory, authFactory){
 
   $scope.confusedStudent = function() {
 		studentFactory.confusedStudent ($scope.student.studentName);
+    $scope.isProcessing = true;
+    $timeout(function(){
+      $scope.isProcessing = false;
+    }, 30000);
   };
 
 }
