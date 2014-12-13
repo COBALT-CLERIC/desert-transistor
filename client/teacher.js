@@ -177,3 +177,10 @@ function update() {
 }
 update();
 
+$( document ).ready(function(){
+  $('#confused-icon').on('click', function(event) {
+    event.preventDefault();
+    console.log('confused icon clicked')
+    /* Act on the event */
+  });
+});

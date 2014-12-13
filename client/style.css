@@ -1,31 +1,59 @@
+@font-face { font-family: "Brandon Bol"; src: url('./fonts/Brandon_bld.otf'); } 
+
 * {
+  font-family: "Brandon Bol";
   box-sizing: border-box;
 }
 
+/*#confused::before {
+  content: url('./img/sad mac-smaller.png');
+  position: relative;
+  top:-250%;
+}*/
+
+#confused-icon {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
 #confused {
+
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0px 1px 0px 0px #1c1b18;
-  background:linear-gradient(to bottom, #a73f2d 5%, #b54b3a 100%);
-  background-color:#a73f2d;
-  border:1px solid #82796d;
-  border-radius:30px;
+  
+  border: none;
+  border-radius:8px;
+  font-size:40px;
+  width: 300px;
+  height: 90px;
+
+  color: #4A4A4A;
+
+  
+  /* Rectangle 5: */
+  background: #B2E4E7;
+  border: 5px solid #333333;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  border-radius: 8px;
+
+  
   display:inline-block;
   cursor:pointer;
-  color:#ffffff;
-  font-family:arial;
-  font-size:40px;
-  font-weight:bold;
-  padding:20px 35px;
+  
+
+  
+  
   text-decoration:none;
-  text-shadow:0px 1px 0px #7a2a1d;
+
 }
 
 #confused:hover {
-  background-color:#b34332;
-  background:linear-gradient(to bottom, #b54b3a 5%, #a73f2d 100%);
+  box-shadow: none;
   cursor: pointer;
 }
 
@@ -53,7 +81,7 @@
 
 html, body {
   position: relative;
-  background-color: #fff;
+  background: #B2E4E7;
   height: 100%;
   width: 100%;
 }
