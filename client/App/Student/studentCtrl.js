@@ -15,11 +15,7 @@ function StudentController ($scope, $timeout, studentFactory, authFactory){
   $scope.student = authFactory;
 
   $scope.confusedStudent = function() {
-		studentFactory.confusedStudent ($scope.student.studentName);
-    $scope.isProcessing = true;
-    $timeout(function(){
-      $scope.isProcessing = false;
-    }, 30000);
+    studentFactory.confusedStudent ($scope.student.studentName);
   };
 
 }
