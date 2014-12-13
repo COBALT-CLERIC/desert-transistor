@@ -3,7 +3,7 @@
 var segments = 30; //30 secs as the width at every timeframe
 var interval = 1000; //millesecond delay
 
-var totalStudents=10;
+var totalStudents = 10;
 
 // var setTotalStudent = function(num){
 //   totalStudents = num;
@@ -14,8 +14,9 @@ var now = new Date(Date.now());
 var confusionCollection = [];
 var confused = 0;
 
-var images = ['img/kingsten.png', 'img/krystal.png', 'img/will.png', 
-'img/ash.png', 'img/jon.png', 'img/charlie.png', 'img/Mario-icon.png', 'img/silvia.png'];
+var images = ['img/kingsten.png', 'img/krystal.png', 'img/will.png',
+  'img/ash.png', 'img/jon.png', 'img/charlie.png', 'img/Mario-icon.png', 'img/silvia.png'
+];
 
 for (var i = 0, data = []; i < segments; i++) {
   data[i] = 0;
@@ -110,8 +111,8 @@ var squareTime = squareSize * xPerSec;
 var holder = [];
 
 var clipId = 0;
-var popSquare = function(student){
- // var xPos = timediff * xPerSec;
+var popSquare = function(student) {
+  // var xPos = timediff * xPerSec;
   clipId++;
   var xPos = width + margin.right + margin.left;
   var yPos = globalY;
@@ -121,26 +122,26 @@ var popSquare = function(student){
   } else if (holder.length === 1) {
 
 
-    var timediff  = (new Date(student.createdAt).getTime() - new Date(holder[0]).getTime());
-    if(timediff < squareTime/3){
-      globalY -= squareSize;  
-      yPos = globalY;   
-    }else{
+    var timediff = (new Date(student.createdAt).getTime() - new Date(holder[0]).getTime());
+    if (timediff < squareTime / 3) {
+      globalY -= squareSize;
+      yPos = globalY;
+    } else {
 
       globalY = height - squareSize;
       yPos = globalY;
     }
   }
 
-  
+
   squares.append("image")
-        .attr('class', 'square')
-        .attr('xlink:href', images[Math.floor(Math.random()*images.length)])
-        .attr("x", xPos)
-        .attr("y", yPos)
-        .attr("width", squareSize)
-        .attr("height", squareSize);
-       
+    .attr('class', 'square')
+    .attr('xlink:href', images[Math.floor(Math.random() * images.length)])
+    .attr("x", xPos)
+    .attr("y", yPos)
+    .attr("width", squareSize)
+    .attr("height", squareSize);
+
 
   holder.shift();
   holder.push(student.createdAt);
@@ -203,6 +204,7 @@ update();
 $(document).ready(function() {
   $('body').on('click', '#confused', function(event) {
     event.preventDefault();
+    console.log('test')
     $('#confused-icon').addClass('animated shake')
       .delay(1000)
       .queue(function(next) {
@@ -210,11 +212,12 @@ $(document).ready(function() {
           .removeClass('animated shake')
         next();
       });
-    
-      $('#confused').fadeOut(400, function() {
-        $('#confused').fadeIn(10000)
-        
-    
+    $('#confused').attr('disabled', 'disabled').fadeOut(400, function() {
+      $('#confused').fadeIn(10000)
+        .queue(function(next) {
+          $('#confused').removeAttr('disabled');
+          next();
+        });
     });
   });
 });
